@@ -1,0 +1,60 @@
+Resolvendo Subdominios com Hakcheckurl
+echo testphp.vulnweb.com | gauplus | hakcheckurl | grep -v '404|999|403|500'
+
+
+Buscar por Key de API no GIT
+docker run --rm mswell/masstrufflehog -o 
+
+
+
+-----------------------ENUMERANDO JAVASCRIPT---------------------------
+
+Extraindo .js - Gauplus
+echo tesla.com | gauplus | grep -iE '\.js' | anew jstesla
+
+
+Validando js - HTTPX
+*após criar o arquivo acima com gauplus utilizar o httpx para filtrar
+cat jstesla | httpx -status-code -mc 200 | anew js200
+
+TIP ENUMERACAO
+linkfinder + collector + gau
+gau -subs alvo.com | grep -iE '\.js' |grep -iEv '(\.jsp|\.json)' >> js.txt
+cat js.txt | anti-burl |awk '{print $4}' | anew alivejs.txt
+
+*agora será passado para o linkfinder enumerar os achados anteriores
+xargs -a alivejs.txt -n 2 -I@ bash -c "echo -e '\n[URL]: @\n'; python3 /root/usr/PastaOndeEstaoAsTools/js/linkfinder.py -i @ -o cli"
+
+Utilizando collector para filtrar o arquivo anterior
+cat alivejs.txt | python3 /root/usr/PastaOndeEstaoAsTools/js/collector.py output 
+-cd output/ 
+ -ls  (será mostrado os arquivos de output files.txt urls.txt)
+
+------------BUSCAR TOKENS DENTRO DO JAVASCRIPT--------------
+
+echo alvo.com | httpx -silent | getjs --complete | anew js  
+*abrir o JSScanner.py
+python3 JSScanner.py
+ *seleciona o arquivo: js 
+   *seleciona o caminho do regex dentro da pasta do JSScanner: regex.txt
+*se encontrar um token testar no https://github.com/streaak/keyhacks
+
+------------------------------------------------------------
+Xargs com paramspider
+python3 paramspider.py  
+ vim listadealvos
+  xargs -a listadealvos -I@ sh -c 'python3 paramspider.py -d "@"'
+*verificar os arquivos em output
+
+-------------------------------------------------------------
+
+subdominios bruto com apontamentos de DNSs
+puredns bruteforce /caminhocorreto/2m-subdomains.txt ALVO.com -r /home/ubuntu/massdns/lists/resolvers.txt -w output
+puredns bruteforce 2m-subdomains.txt ALVO.com -r /usr/share/sniper/plugins/massdns/lists/resolvers.txt -w output
+
+
+
+Crawler de dominios validos
+*pode ser usado user agents diferentes para simular smartphone 
+python3 xnLinkFinder.py -i redbull.com -sp https://redbull.com -sf redbull.* -d 2 -v -o redbull -u mobile-android
+python3 xnLinkFinder.py -i redbull.com -sp https://redbull.com -sf redbull.* -d 2 -v -o $1
