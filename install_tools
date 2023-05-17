@@ -1,0 +1,142 @@
+
+Atualizar a vps
+apt-get update
+apt-get upgrade -y 
+
+Instalando o GO
+wget https://go.dev/dl/go1.17.7.linux-amd64.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.17.7.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+go version
+
+Instalação do PIP3 
+apt-get -y install python3-pip
+pip3 --version 
+
+------------------------------------------------------------------------------------
+Instalação de ferramentas
+
+https://github.com/m4ll0k/BBTz     - diversas tools usadas
+
+snap install amass                                  uso: amass enum -d sitealvo.com
+
+go install github.com/tomnomnom/assetfinder@latest  uso: assetfinder sitealvo.com
+mv /root/go/bin/* /usr/bin/
+
+go install github.com/tomnomnom/anew@latest         uso: cat subdomains1 subdomains2 | anew subdomainsnew
+mv /root/go/bin/* /usr/bin/                      (anew limpa os subdominios duplicados)       
+
+git clone https://github.com/findomain/findomain.git
+cd findomain
+cargo build --release
+sudo cp target/release/findomain /usr/bin/
+findomain
+./findomain -t sitealvo.com     
+
+go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest  uso: echo sitealvo.com | subfinder -silent | dnsx
+mv /root/go/bin/* /usr/bin/   
+
+go install github.com/bp0lr/gauplus@latest                   uso: echo sitealvo.com | gauplus
+mv /root/go/bin/* /usr/bin/    
+
+go install github.com/deletescape/goop@latest 
+mv /root/go/bin/* /usr/bin/            
+
+go install github.com/hakluke/hakcheckurl@latest
+mv /root/go/bin/* /usr/bin/      
+
+git clone https://github.com/guelfoweb/knock.git             uso: python3 knockpy.py sitealvo.com
+pip3 install -r requirements.txt
+
+git clone https://github.com/s0md3v/Photon.git
+pip3 install -r requirements.txt 
+
+go install github.com/tomnomnom/meg@latest
+mv /root/go/bin/* /usr/bin/
+
+go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+mv /root/go/bin/* /usr/bin/
+
+go install github.com/tomnomnom/waybackurls@latest
+mv /root/go/bin/* /usr/bin/
+
+git clone --recursive https://github.com/screetsec/Sudomy.git
+python3 -m pip install -r requirements.txt
+
+pip3 install uro
+
+go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
+mv /root/go/bin/* /usr/bin/
+
+go install github.com/takshal/freq@latest     
+mv /root/go/bin/* /usr/bin/
+
+go install github.com/j3ssie/sdlookup@latest
+mv /root/go/bin/* /usr/bin
+
+git clone https://github.com/vortexau/dnsvalidator.git
+python3 setup.py install
+dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 100 -o resolvers.txt
+
+git clone https://github.com/blechschmidt/massdns.git
+make
+sudo make install
+go install github.com/d3mondev/puredns/v2@latest
+cd /root/go/bin
+mv * /usr/bin/ 
+wget https://wordlists-cdn.assetnote.io/data/manual/2m-subdomains.txt
+cd dnsvalidator
+*encontrar o caminho do arquivo resolvers.txt
+puredns bruteforce /caminhocorreto/2m-subdomains.txt facebook.com -r /home/ubuntu/massdns/lists/resolvers.txt -w output
+
+go install -v github.com/hueristiq/hqurlfind3r/cmd/hqurlfind3r@latest
+mv /root/go/bin/* /usr/bin/
+
+go install github.com/ferreiraklet/airixss@latest
+mv /root/go/bin/* /usr/bin/
+
+go install github.com/ferreiraklet/nilo@latest
+mv /root/go/bin/* /usr/bin/
+
+go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
+mv /root/go/bin/* /usr/bin/
+
+GO111MODULE=on go install github.com/lc/subjs@latest
+mv /root/go/bin/* /usr/bin/
+
+$ git clone https://github.com/GerbenJavado/LinkFinder.git
+$ cd LinkFinder
+$ python setup.py install
+$ pip3 install -r requirements.txt
+
+git clone https://github.com/0x240x23elu/JSScanner.git
+cd JSScanner
+pip3 install -r  requirements.txt
+
+git clone https://github.com/devanshbatham/ParamSpider
+$ cd ParamSpider
+$ pip3 install -r requirements.txt
+
+git clone https://github.com/s0md3v/goop.git
+pip install goop
+
+go install github.com/tomnomnom/qsreplace@latest
+
+$ git clone https://github.com/xnl-h4ck3r/waymore.git
+$ cd waymore
+$ sudo python setup.py install    ou  $ sudo pip3 install -r requirements.txt
+
+pip3 install shodan
+https://github.com/imhunterand/shoscan-cli
+
+git clone https://github.com/xnl-h4ck3r/xnLinkFinder.git
+cd xnLinkFinder
+python setup.py install
+
+go install github.com/takshal/freq@latest
+mv /root/go/bin/* /usr/bin/
+
+go install github.com/tomnomnom/gf@latest
+mv /root/go/bin/* /usr/bin/
+
+apt update && apt install golang && go install github.com/tomnomnom/gf@latest && mv /root/go/bin/gf /usr/bin && cd /root/ && git clone https://github.com/1ndianl33t/Gf-Patterns.git && mv Gf-Patterns/ .gf
